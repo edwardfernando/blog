@@ -1,0 +1,21 @@
+<H1>All Posts</H1>
+
+<table border="1" width="50%">
+	<tr>
+		<th>#</th>
+		<th>Title</th>
+	    <th>Text</th>
+	</tr>
+
+	<% @posts.each do |post| %>
+	<tr>
+		<th>
+			<%= link_to 'Show', post_path(post) %> - 
+			<%= link_to 'Edit', edit_post_path(post)%> - 
+			<%= link_to 'Destory', post_path(post), method: :delete, data: {confirm: 'Are you sure want to delete this post?'} %>
+		</th>
+		<td><%= post.title %></td>
+		<td><%= post.text %></td>
+	</tr>
+	<% end %>
+</table>
