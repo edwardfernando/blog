@@ -1,0 +1,30 @@
+<%= form_for @website do |w| %>
+	<table>
+		<tr>
+			<td colspan="2"> 
+				<%= w.submit %>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td><%= w.label :url %></td>
+			<td>
+				<%= w.hidden_field :url %>
+				<%= @website.url %>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td><%= w.label :title %></td>
+			<td>
+				<%= w.hidden_field :title %>
+				<%= @website.title %>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td><%= w.label :content %></td>
+			<td>
+				<%= w.hidden_field :content %>
+				<%= @website.content.html_safe %>
+			</td>
+		</tr>
+	</table>
+<% end %>

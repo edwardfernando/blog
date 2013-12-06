@@ -1,0 +1,13 @@
+<table border="1" width="50%">
+	<tr>
+		<th>Thread Title</th>
+		<th>URL</th>
+	</tr>
+	
+	<% @websites.each do |w| %>
+	<tr>
+		<td> <%= link_to w.title, website_path(w) %> </td>
+		<td> <%= w.url %> </td>
+	</tr>
+	<% end %>
+</table>
