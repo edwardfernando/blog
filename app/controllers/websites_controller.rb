@@ -6,10 +6,11 @@ class WebsitesController < ApplicationController
 
 	def index
 		@websites = Website.all
+		@website = Website.new
 	end
 
 	def new
-		url = params[:url]
+		url = params[:website][:url]
 		doc = Nokogiri::HTML(open(url))
 
 		@website = Website.new

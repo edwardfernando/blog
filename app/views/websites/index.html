@@ -1,3 +1,11 @@
+<%= form_for @website, :html => {:method => :get}, :url => {:action => 'new'} do |f| %>
+	<%= f.label :url %>
+	<%= f.text_field :url %>
+	<%= f.submit %>
+<% end %>
+	
+</div>
+
 <table border="1" width="50%">
 	<tr>
 		<th>Thread Title</th>
@@ -11,3 +19,4 @@
 	</tr>
 	<% end %>
 </table>
+
