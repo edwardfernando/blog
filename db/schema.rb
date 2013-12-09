@@ -32,14 +32,17 @@ ActiveRecord::Schema.define(version: 20131206163932) do
 
   create_table "testimonials", force: true do |t|
     t.string   "name"
-    t.string   "comment"
+    t.text     "comment"
     t.string   "sex"
     t.string   "location"
     t.integer  "age"
     t.boolean  "approved"
+    t.integer  "website_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "testimonials", ["website_id"], name: "index_testimonials_on_website_id"
 
   create_table "websites", force: true do |t|
     t.string   "url"
