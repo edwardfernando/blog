@@ -1,50 +1,23 @@
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		  <span class="sr-only">Toggle navigation</span>
-		  <span class="icon-bar">
-		</span>
-		  <span class="icon-bar">
-		</span>
-		  <span class="icon-bar">
-		</span>
-		</button>
-		<a class="navbar-brand" href="#">Project name</a>
-		</div>
-		<div class="collapse navbar-collapse">
-		<ul class="nav navbar-nav">
-		  <li class="active">
-		    <a href="#">Home</a>
-		  </li>
-		  <li>
-		    <a href="#about">About</a>
-		  </li>
-		  <li>
-		    <a href="#contact">Contact</a>
-		  </li>
-		</ul>
-		</div>
-		<!--/.nav-collapse -->
-		</div></div>
-		<div class="container">
-			<div class="starter-template" style="padding-top: 39px;">
-				<h1>List Available Website</h1>
-				<%= form_for @website, :html => {:method => :get, 
-					:class => 'navbar-form navbar-left',
-					:role => 'search'}, :url => {:action => 'new'} do |f| %>
-					<div class="form-group">
-						<%= f.text_field :url, class: 'form-control', placeholder: 'Website'%>
-					</div>
-					<%= f.submit 'Submit', :class => 'btn btn-default' %>
-				<% end %>
+<div class="container">
+	<div class="page-header" style="padding-top: 39px;">
+		<h1>Your Website</h1>
+	</div>
+
+	<div class="starter-template">
+		<%= form_for @website, :html => {:method => :get, 
+		:class => 'navbar-form navbar-left',
+		:role => 'search'}, :url => {:action => 'new'} do |f| %>
+			<div class="form-group">
+				<%= f.text_field :url, class: 'form-control', placeholder: 'Website'%>
 			</div>
+			<%= f.submit 'Submit', :class => 'btn btn-default' %>
+		<% end %>
+	</div>
 
 
-			<div class="list-group" style="padding-top: 50px; padding-left: 16px;">
-			<% @websites.each do |w| %>
-			    <a href="<%= website_path(w) %>" class="list-group-item"><%= w.title %><span class="badge"><%= w.testimonials.length %></span></a>
-			<% end %>
-			</div>
-			
-		</div>
+	<div class="list-group" style="padding-top: 50px; padding-left: 16px;">
+		<% @websites.each do |w| %>
+		<a href="<%= website_path(w) %>" class="list-group-item"><%= w.title %><span class="badge"><%= w.testimonials.length %></span></a>
+		<% end %>
+	</div>
+</div>

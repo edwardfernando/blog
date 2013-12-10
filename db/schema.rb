@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206163932) do
+ActiveRecord::Schema.define(version: 20131210113845) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 20131206163932) do
   end
 
   add_index "testimonials", ["website_id"], name: "index_testimonials_on_website_id"
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "websites", force: true do |t|
     t.string   "url"
