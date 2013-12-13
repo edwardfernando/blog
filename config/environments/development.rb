@@ -37,5 +37,5 @@ Blog::Application.configure do
 
   config.eager_load = false
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'http://calm-brushlands-5895.herokuapp.com/' }
 end
