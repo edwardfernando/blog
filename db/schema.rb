@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213104401) do
+ActiveRecord::Schema.define(version: 20131213115546) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -31,27 +31,17 @@ ActiveRecord::Schema.define(version: 20131213104401) do
   end
 
   create_table "testimonials", force: true do |t|
-    t.string   "name"
     t.text     "comment"
-    t.string   "sex"
-    t.string   "location"
-    t.integer  "age"
-    t.boolean  "approved"
     t.integer  "website_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "testimonials", ["user_id"], name: "index_testimonials_on_user_id"
   add_index "testimonials", ["website_id"], name: "index_testimonials_on_website_id"
 
   create_table "users", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -62,6 +52,8 @@ ActiveRecord::Schema.define(version: 20131213104401) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
