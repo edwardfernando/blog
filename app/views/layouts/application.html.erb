@@ -21,37 +21,33 @@
 					</span>
 				</button>
 				<a class="navbar-brand" href="/">
-					<span class="label label-info">Testi<span>
+					<span class="label label-info">Testi
 					<span class="glyphicon glyphicon-flash"></span>
 					<span class="label label-warning">POW</span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active">
+					<li>
 						<a href="<%= websites_path %>">Your Site</a>
 					</li>
 					<li>
-						<a href="#contact">Contact</a>
+						<% if user_signed_in? %>
+							<a href="#"><%= current_user.email %></a>
+						<% else %>
+							<%= link_to 'Sign In', new_user_session_path %>
+						<% end %>
 					</li>
+					<% if user_signed_in? %>
+					<li>
+						<%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
+					</li>
+					<% end %>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
-	</div>
-
-
-<div class="container">
-	<div class="page-header" style="padding-top: 39px;">
-<% if user_signed_in? %>
-  <p>Welcome <%= current_user.email %></p>
-  <%= link_to 'Logged In [click to logout]', destroy_user_session_path, :method => :delete %>
-<% else %>
-  <p>You are not signed in.</p>
-  <%= link_to 'Login', new_user_session_path %>
-<% end %>
-</div>
-</div>
+	</div>	
 
 <%= yield %>
 

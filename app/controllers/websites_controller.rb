@@ -4,6 +4,8 @@ require 'open-uri'
 
 class WebsitesController < ApplicationController
 
+	before_action :is_logged_in,  except: [:show]
+
 	def index
 		@websites = Website.find_by_user(current_user.id)
 		@website = Website.new
