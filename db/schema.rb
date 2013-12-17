@@ -68,8 +68,11 @@ ActiveRecord::Schema.define(version: 20131213161440) do
     t.string   "url"
     t.string   "title"
     t.text     "content"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "websites", ["user_id"], name: "index_websites_on_user_id"
 
 end

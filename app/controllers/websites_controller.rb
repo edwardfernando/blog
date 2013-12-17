@@ -5,7 +5,7 @@ require 'open-uri'
 class WebsitesController < ApplicationController
 
 	def index
-		@websites = Website.all
+		@websites = Website.find_by_user(current_user.id)
 		@website = Website.new
 	end
 
@@ -21,6 +21,7 @@ class WebsitesController < ApplicationController
 
 	def create
 		@website = Website.new(params[:website].permit(:url, :title, :content))
+		@website.user = User.find(current_user.id)
 		@website.save
 		redirect_to @website
 	end
