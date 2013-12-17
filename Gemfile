@@ -35,7 +35,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'unicorn'
 gem 'devise'
-gem "figaro"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
