@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protected
 	def is_logged_in
 		if !user_signed_in?
-			flash.now[:notice] = "Please sign in first."
+			flash[:warning] = "Please sign in first."
 			redirect_to new_user_session_path
 		end
 	end

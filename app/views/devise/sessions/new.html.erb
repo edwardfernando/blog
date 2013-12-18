@@ -1,5 +1,15 @@
 <div class="container">
 	<div class="page-header" style="padding-top: 39px;">
+
+		<% flash.each do |name, msg| %>
+		  <% if msg.is_a?(String) %>
+		    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+		      <a class="close" data-dismiss="alert">&#215;</a>
+		      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+		    </div>
+		  <% end %>
+		<% end %>
+
 		<h2>Sign in</h2>
 
 		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
