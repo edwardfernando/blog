@@ -4,6 +4,10 @@ Blog::Application.routes.draw do
   root :to => "welcome#index"
 
   resources :websites do
+    collection do
+      get 'kaskus_new'
+      post 'kaskus_new', :action => 'kaskus_create'
+    end
     resources :testimonials
   end
 

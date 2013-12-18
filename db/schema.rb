@@ -59,6 +59,10 @@ ActiveRecord::Schema.define(version: 20131213161440) do
     t.string   "name"
     t.string   "oauth_token"
     t.string   "oauth_expires_at"
+    t.string   "kaskus_id"
+    t.string   "kaskus_auth_token"
+    t.boolean  "kaskus_is_verify"
+    t.datetime "kaskus_verify_date"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
