@@ -1,23 +1,20 @@
-<div class="container">
-	<div class="page-header" style="padding-top: 39px;">
-		<h1>Your Website</h1>
-	</div>
-
-	<div class="starter-template">
-		<%= form_for @website, :html => {:method => :get, 
-		:class => 'navbar-form navbar-left',
-		:role => 'search'}, :url => {:action => 'new'} do |f| %>
-			<div class="form-group">
-				<%= f.text_field :url, class: 'form-control', placeholder: 'Website'%>
-			</div>
-			<%= f.submit 'Submit', :class => 'btn btn-default' %>
-		<% end %>
-	</div>
+<h1>Your Website</h1>
 
 
-	<div class="list-group" style="padding-top: 50px; padding-left: 16px;">
-		<% @websites.each do |w| %>
-		<a href="<%= website_path(w) %>" class="list-group-item"><%= w.title %><span class="badge"><%= w.testimonials.length %></span></a>
-		<% end %>
+<div class="starter-template">
+<%= form_for @website, :html => {:method => :get, 
+:class => 'navbar-form navbar-left',
+:role => 'search'}, :url => {:action => 'new'} do |f| %>
+	<div class="form-group">
+		<%= f.text_field :url, class: 'form-control', placeholder: 'Website'%>
 	</div>
+	<%= f.submit 'Submit', :class => 'btn btn-default' %>
+<% end %>
+</div>
+
+
+<div class="list-group" style="padding-top: 50px; padding-left: 16px;">
+<% @websites.each do |w| %>
+<a href="<%= website_path(w) %>" class="list-group-item"><%= w.title %><span class="badge"><%= w.testimonials.length %></span></a>
+<% end %>
 </div>

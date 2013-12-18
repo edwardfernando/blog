@@ -5,6 +5,7 @@ require 'open-uri'
 class WebsitesController < ApplicationController
 
 	before_action :is_logged_in,  except: [:show]
+	before_action :is_kaskus_id_exits, only: [:kaskus_load_thread]
 
 	def index
 		@websites = Website.find_by_user(current_user.id)
@@ -41,4 +42,18 @@ class WebsitesController < ApplicationController
 		
 	end
 	
+	def kaskus_load_thread
+		kaskus_url = "http://www.kaskus.co.id/profile/viewallclassified/#{current_user.kaskus_id}"
+		@doc = Nokogiri::HTML(open(kaskus_url))
+		puts @doc
+	end
+
+	private 
+	def is_kaskus_id_exits
+		if current_user.kaskus_id.empty?
+			flash[:warning] = "You haven't provided a kaskus ID"
+			redirect_to kaskus_new_websites_path
+		end
+	end
+
 end

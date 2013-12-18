@@ -29,10 +29,10 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="<%= websites_path %>">Register Kaskus</a>
+						<%= link_to 'Register Kaskus', websites_path %>
 					</li>
 					<li>
-						<a href="<%= websites_path %>">Your Site</a>
+						<%= link_to 'Your Site', kaskus_load_thread_websites_path%>
 					</li>
 					<li>
 						<% if user_signed_in? %>
@@ -52,7 +52,23 @@
 		</div>
 	</div>	
 
-<%= yield %>
+<div class="container">
+	<div class="page-header" style="padding-top: 39px;">
+
+	<% flash.each do |name, msg| %>
+	  <% if msg.is_a?(String) %>
+	    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+	      <a class="close" data-dismiss="alert">&#215;</a>
+	      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+	    </div>
+	  <% end %>
+	<% end %>
+	
+	<%= yield %>
+	</div>
+</div>
+
+	
 
 </body>
 </html>

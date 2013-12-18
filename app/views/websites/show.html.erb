@@ -1,26 +1,19 @@
-<div class="container">
-	<div class="page-header" style="padding-top: 39px;">
-		<h3>
-			<a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>	
-		</h3>
-	</div>
-
+<a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>
 	<%= @website.content.html_safe %> 
 	
 
-	<div>
-		<h2>Testimonials</h2>
+<div>
+	<h2>Testimonials</h2>
 
-		<%= form_for([@website, @website.testimonials.build]) do |f| %>
-			<p>
-				<%= f.label :comment %>
-				<%= f.text_area :comment %>
-			</p>
-			<%= f.submit %>
-		<% end %>
+	<%= form_for([@website, @website.testimonials.build]) do |f| %>
+		<p>
+			<%= f.label :comment %>
+			<%= f.text_area :comment %>
+		</p>
+		<%= f.submit %>
+	<% end %>
 
-		<% @testimonials.each do |t| %>
-			<%= t.comment %> <br/>
-		<% end %>
-	</div>
-</div>	
+	<% @testimonials.each do |t| %>
+		<%= t.comment %> <br/>
+	<% end %>
+</div>
