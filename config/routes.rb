@@ -7,6 +7,7 @@ Blog::Application.routes.draw do
     collection do
       get 'kaskus_new'
       post 'kaskus_new', :action => 'kaskus_create'
+      get 'kaskus_load_thread'
     end
     resources :testimonials
   end
