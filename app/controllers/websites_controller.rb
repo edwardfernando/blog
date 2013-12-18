@@ -44,8 +44,15 @@ class WebsitesController < ApplicationController
 	
 	def kaskus_load_thread
 		kaskus_url = "http://www.kaskus.co.id/profile/viewallclassified/#{current_user.kaskus_id}"
-		@doc = Nokogiri::HTML(open(kaskus_url))
-		puts @doc
+		doc = Nokogiri::HTML(open(kaskus_url))
+		
+		@kaskus_threads = {}
+		doc.css("table.zebra").css("tbody tr").each do |item|
+			thread_id = item.css("a")[0]["href"].split("/")[2]
+			@kaskus_threads[thread_id] = KaskusThread.new item.css(".post-title").text, thread_id , item.css("time").text
+		end
+
+
 	end
 
 	private 
