@@ -33,4 +33,12 @@ class WebsitesController < ApplicationController
 		@testimonials = @website.testimonials
 	end
 
+	def kaskus_new
+		
+	end
+
+	def kaskus_create
+		
+	end
+	
 end
