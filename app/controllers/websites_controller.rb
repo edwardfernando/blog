@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'securerandom'
 
 
 class WebsitesController < ApplicationController
@@ -40,10 +41,12 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_create
-		User.find(current_user.id).update(:kaskus_id => params[:user][:kaskus_id])
+		token = SecureRandom.urlsafe_base64(50)
 
-		flash[:warning] = "Kaskus ID saved successfully"
-		redirect_to kaskus_load_thread_websites_path
+		User.find(current_user.id).update(:kaskus_id => params[:user][:kaskus_id],:kaskus_auth_token => token)
+
+		flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
+		redirect_to kaskus_new_websites_path
 	
 	end
 	
