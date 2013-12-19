@@ -1,4 +1,6 @@
-<%= form_for @user, :url => kaskus_new_websites_path do |f| %>
+<%= form_for @user, :url => kaskus_new_websites_path, 
+		:html => {:role => 'form'} do |f| %>
+
 	<% if @user.errors.any? %>
 		<div id="error_explanation">
 			<h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2> 
@@ -9,23 +11,33 @@
 			</ul>
 		</div>
 	<% end %>
-	<%= f.label :kaskus_id %>
-	<%= f.text_field :kaskus_id %>
-	<%= f.submit "Save" %>
-<% end %>
 
-<% if !@user.kaskus_auth_token.blank? %>
-
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title">Your Kaskus Token</h3>
-	  </div>
-	  <div class="panel-body">
-	    <%= @user.kaskus_auth_token %>
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <%= f.text_field :kaskus_id, :class => 'form-control', :placeholder => "Input your Kaskus ID here" %>
+	      <span class="input-group-btn">
+	        <%= f.submit "Save", :class => 'btn btn-default' %>
+	      </span>
+	    </div>
 	  </div>
 	</div>
+<% end %>
+
+<div style="padding-top:30px">
+	<p>
+		You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below
+	</p>
+</div>
+
+<% if !@user.kaskus_auth_token.blank? %>
+	<div class="input-group input-group-lg">
+	  <span class="input-group-addon">Token</span>
+	  <label class="form-control"><%= @user.kaskus_auth_token %></label>
+	</div>
+
 	<div>
-		<%= link_to 'New Post', kaskus_verify_token_websites_path %>
+		<%= link_to "Verify My Account" %>
 	</div>
 <% end %>
 
