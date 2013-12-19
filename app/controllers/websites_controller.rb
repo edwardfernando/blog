@@ -37,7 +37,6 @@ class WebsitesController < ApplicationController
 
 	def kaskus_new
 		@user = User.find(current_user.id)
-		#@user = User.new
 	end
 
 	def kaskus_create

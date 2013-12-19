@@ -13,3 +13,22 @@
 	<%= f.text_field :kaskus_id %>
 	<%= f.submit "Save" %>
 <% end %>
+
+<% if !@user.kaskus_auth_token.blank? %>
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Your Kaskus Token</h3>
+	  </div>
+	  <div class="panel-body">
+	    <%= @user.kaskus_auth_token %>
+	  </div>
+	</div>
+	<div>
+		<%= link_to "Verify account" %>
+	</div>
+<% end %>
+
+
+
+
