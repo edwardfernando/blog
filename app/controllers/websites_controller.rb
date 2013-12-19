@@ -62,6 +62,12 @@ class WebsitesController < ApplicationController
 
 	end
 
+	def kaskus_verify_token
+		#@user = User.find(current_user.id)
+		#puts "TOKEN >>>"+User.find(current_user.id)
+		puts "TOKEN >>>"
+	end
+
 	private 
 	def is_kaskus_id_exits
 		if current_user.kaskus_id.blank?
@@ -69,5 +75,7 @@ class WebsitesController < ApplicationController
 			redirect_to kaskus_new_websites_path
 		end
 	end
+
+
 
 end
