@@ -40,17 +40,11 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_create
-		puts ">>>>>>>>> " + params[:post_kaskus_id]
+		User.find(current_user.id).update(:kaskus_id => params[:user][:kaskus_id])
 
-		# @post = User.new(params[:user].permit(:kaskus_id))
-
-		# if @post.save
-		# 	flash[:warning] = "Successfully saved"
-		# 	redirect_to welcome_index_path
-		# else
-		# 	flash[:warning] = "Failed to save"
-		# 	render 'new'
-		# end
+		flash[:warning] = "Kaskus ID saved successfully"
+		redirect_to kaskus_load_thread_websites_path
+	
 	end
 	
 	def kaskus_load_thread
