@@ -57,7 +57,7 @@ class WebsitesController < ApplicationController
 
 	private 
 	def is_kaskus_id_exits
-		if current_user.kaskus_id.empty?
+		if current_user.kaskus_id.blank?
 			flash[:warning] = "You haven't provided a kaskus ID"
 			redirect_to kaskus_new_websites_path
 		end
