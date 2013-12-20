@@ -24,13 +24,15 @@
 	</div>
 <% end %>
 
-<div style="padding-top:30px">
-	<p>
-		You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below
-	</p>
-</div>
 
 <% if !@user.kaskus_auth_token.blank? %>
+
+	<div style="padding-top:30px">
+		<p>
+			You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below
+		</p>
+	</div>
+
 	<div class="input-group input-group-lg">
 	  <span class="input-group-addon">Token</span>
 	  <label class="form-control"><%= @user.kaskus_auth_token %></label>
