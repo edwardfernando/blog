@@ -90,9 +90,37 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_verify_token
-		#@user = User.find(current_user.id)
-		#puts "TOKEN >>>"+User.find(current_user.id)
-		puts "TOKEN >>>"
+		is_verify = current_user.kaskus_is_verify.to_s
+		puts "current status : "+is_verify
+		if is_verify == "false"
+			user_obj = User.find(current_user.id)
+			kaskus_id = user_obj.kaskus_id
+			kaskus_auth_token = user_obj.kaskus_auth_token
+
+			kaskus_profile_url = "http://www.kaskus.co.id/profile/#{kaskus_id}"
+			
+			doc = Nokogiri::HTML(open(kaskus_profile_url))
+
+			kaskus_bio = doc.css("div.description").text.delete(" ")
+			bio_token = kaskus_bio[3, kaskus_bio.length - 3]
+
+			@auth_status = false
+			if kaskus_auth_token == bio_token
+				user_obj.kaskus_is_verify = 1
+				user_obj.kaskus_verify_date = Time.now
+				user_obj.save
+				
+				@auth_status = true
+				flash[:success] = "Thanks, Your token has been verified"
+				redirect_to kaskus_new_websites_path
+			else
+				flash[:warning] = "Verification failed! Please update your bio with following token"
+				redirect_to kaskus_new_websites_path
+			end
+
+		else
+			flash[:success] = "Your token has been verified"
+		end
 	end
 
 	private 
