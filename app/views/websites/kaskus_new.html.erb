@@ -25,7 +25,7 @@
 <% end %>
 
 
-<% if !@user.kaskus_auth_token.blank? %>
+<% if !@user.kaskus_is_verify? %>
 
 	<div style="padding-top:30px">
 		<p>
@@ -38,8 +38,8 @@
 	  <label class="form-control"><%= @user.kaskus_auth_token %></label>
 	</div>
 
-	<div>
-		<%= link_to "Verify My Account" %>
+	<div style="padding-top:10px;">
+		<%= link_to "Verify My Account", kaskus_verify_token_websites_path, :class => "btn btn-primary" %>
 	</div>
 <% end %>
 
