@@ -38,10 +38,6 @@ class WebsitesController < ApplicationController
 
 	def kaskus_new
 		@user = User.find(current_user.id)
-		is_verify = current_user.kaskus_is_verify.to_s
-		if is_verify == "true"
-			flash[:success] = "Your Kaskus Token is already verified"
-		end
 	end
 
 	def kaskus_create
@@ -94,9 +90,9 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_verify_token
-		is_verify = current_user.kaskus_is_verify.to_s
-		puts "current status : "+is_verify
-		if is_verify == "false"
+		is_verify = current_user.kaskus_is_verify
+		
+		if !is_verify
 			user_obj = User.find(current_user.id)
 			kaskus_id = user_obj.kaskus_id
 			kaskus_auth_token = user_obj.kaskus_auth_token
@@ -124,6 +120,7 @@ class WebsitesController < ApplicationController
 
 		else
 			flash[:success] = "Your token has been verified"
+			redirect_to kaskus_new_websites_path
 		end
 	end
 
