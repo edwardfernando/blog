@@ -6,7 +6,8 @@ require 'securerandom'
 class WebsitesController < ApplicationController
 
 	before_action :is_logged_in,  except: [:show]
-	before_action :is_kaskus_id_exits, only: [:kaskus_load_thread]
+	before_action :is_kaskus_id_exits, only: [:kaskus_fjb_thread_list, :kaskus_load_thread]
+	before_action :is_kaskus_id_verified, only: [:kaskus_fjb_thread_list, :kaskus_load_thread]
 
 	def index
 		@websites = Website.find_by_user(current_user.id)
@@ -102,6 +103,11 @@ class WebsitesController < ApplicationController
 		end
 	end
 
-
+	def is_kaskus_id_verified
+		if !current_user.kaskus_is_verify
+			flash[:warning] = "Your kaskus account is not verified. You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below"
+			redirect_to kaskus_new_websites_path
+		end
+	end
 
 end
