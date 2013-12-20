@@ -38,6 +38,10 @@ class WebsitesController < ApplicationController
 
 	def kaskus_new
 		@user = User.find(current_user.id)
+		is_verify = current_user.kaskus_is_verify.to_s
+		if is_verify == "true"
+			flash[:success] = "Your Kaskus Token is already verified"
+		end
 	end
 
 	def kaskus_create
