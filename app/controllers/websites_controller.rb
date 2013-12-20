@@ -57,18 +57,28 @@ class WebsitesController < ApplicationController
 		kaskus_url = "http://www.kaskus.co.id/profile/viewallclassified/#{current_user.kaskus_id}"
 		doc = Nokogiri::HTML(open(kaskus_url))
 		
+		new_thread_count = 0
 		doc.css("table.zebra").css("tbody tr").each do |item|
 			thread_id = item.css("a")[0]["href"].split("/")[2]
-			thread_title = item.css(".post-title").text
-			thread_create_date = item.css("time").text
-			thread_url = "http://www.kaskus.co.id/thread/#{thread_id}"
 
-			Website.create(
-				url:thread_url, 
-				title:thread_title, 
-				thread_create_date:thread_create_date,
-				thread_id:thread_id,
-				user:current_user).save
+			if Website.where(:thread_id => thread_id).blank?
+				thread_title = item.css(".post-title").text
+				thread_create_date = item.css("time").text
+				thread_url = "http://www.kaskus.co.id/thread/#{thread_id}"
+
+				Website.create(
+					url:thread_url, 
+					title:thread_title, 
+					thread_create_date:thread_create_date,
+					thread_id:thread_id,
+					user:current_user).save
+
+				new_thread_count += 1
+			end
+		end
+
+		if new_thread_count > 0
+			flash[:success] = "#{new_thread_count} thread(s) successfully loaded to your list"
 		end
 
 		redirect_to kaskus_fjb_thread_list_websites_path
