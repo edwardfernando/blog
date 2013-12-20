@@ -62,7 +62,7 @@ class WebsitesController < ApplicationController
 		doc.css("table.zebra").css("tbody tr").each do |item|
 			thread_id = item.css("a")[0]["href"].split("/")[2]
 
-			if Website.where(:thread_id => thread_id).blank?
+			if Website.where(:thread_id => thread_id, :user_id => current_user).blank?
 				thread_title = item.css(".post-title").text
 				thread_create_date = item.css("time").text
 				thread_url = "http://www.kaskus.co.id/thread/#{thread_id}"
