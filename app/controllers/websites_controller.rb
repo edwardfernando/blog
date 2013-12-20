@@ -49,16 +49,32 @@ class WebsitesController < ApplicationController
 	
 	end
 	
+	def kaskus_fjb_thread_list
+		@websites = current_user.websites
+	end
+
 	def kaskus_load_thread
 		kaskus_url = "http://www.kaskus.co.id/profile/viewallclassified/#{current_user.kaskus_id}"
 		doc = Nokogiri::HTML(open(kaskus_url))
 		
-		@kaskus_threads = {}
 		doc.css("table.zebra").css("tbody tr").each do |item|
 			thread_id = item.css("a")[0]["href"].split("/")[2]
-			@kaskus_threads[thread_id] = KaskusThread.new item.css(".post-title").text, thread_id , item.css("time").text
+			thread_title = item.css(".post-title").text
+			thread_create_date = item.css("time").text
+			thread_url = "http://www.kaskus.co.id/thread/#{thread_id}"
+
+			Website.create(
+				url:thread_url, 
+				title:thread_title, 
+				thread_create_date:thread_create_date,
+				thread_id:thread_id,
+				user:current_user).save
 		end
 
+		redirect_to kaskus_fjb_thread_list_websites_path
+	end
+
+	def kaskus_init_thread
 
 	end
 

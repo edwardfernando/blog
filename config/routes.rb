@@ -9,6 +9,7 @@ Blog::Application.routes.draw do
       patch 'kaskus_new', :action => 'kaskus_create'
       get 'kaskus_load_thread'
       get 'kaskus_verify_token'
+      get 'kaskus_fjb_thread_list'
     end
     resources :testimonials
   end
