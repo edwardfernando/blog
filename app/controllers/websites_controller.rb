@@ -41,10 +41,10 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_create
-		token = SecureRandom.urlsafe_base64(25)
 		kaskus_id_param = params[:user][:kaskus_id]
 		
 		if User.where(:kaskus_id => kaskus_id_param).first.blank?
+			token = SecureRandom.urlsafe_base64(25)
 			User.find(current_user.id).update(:kaskus_id => kaskus_id_param,:kaskus_auth_token => token)
 			flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
 		else
