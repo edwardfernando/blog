@@ -1,21 +1,38 @@
-<h1>Your FJB Threads</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">Your FJB Threads</div>
+  <div class="panel-body" align="right">
+  	<button type="button" class="btn btn-default btn-sm" onclick="window.location='<%= kaskus_load_thread_websites_path %>'">
+	  <span class="glyphicon glyphicon-refresh"></span> Reload your thread list
+	</button>
+  </div>
 
-<%= link_to 'Reload your thread list', kaskus_load_thread_websites_path %>
-
-<table width="100%">
-	<tr>
+  <table class="table">
+  	<thead>
+    <tr>
 		<th>Title</th>
 		<th>Created Date</th>
 	</tr>
-<% @websites.each do |w| %>
+	</thead>
+
+	<tbody>
+	<% @websites.each do |w| %>
 	<tr>
 		<td>
 			<%= w.title %>
 			<div>
-				<%= link_to 'Go to kaskus' , w.url %> | Init Testipow for this thread
+				<%= link_to 'Go to kaskus' , w.url, :target => 'blank' %> 
+				| 
+
+				<% if w.content.blank? %>
+				<%= link_to 'Init Thread', init_website_path(w.thread_id) %>
+				<% else %>			
+				<%= link_to 'Show Thread', website_path(w.thread_id) %>
+				<% end %>			
 			</div>
 		</td>
 		<td><%= w.thread_create_date %></td>
 	</tr>
-<% end %>	
-</table>
+	<% end %>	
+	</tbody>
+  </table>
+</div>

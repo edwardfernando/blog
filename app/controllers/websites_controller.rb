@@ -32,7 +32,7 @@ class WebsitesController < ApplicationController
 	end
 
 	def show
-		@website = Website.find(params[:id])
+		@website = Website.where(:thread_id => params[:id]).first
 		@testimonials = @website.testimonials
 	end
 
@@ -62,7 +62,7 @@ class WebsitesController < ApplicationController
 		doc.css("table.zebra").css("tbody tr").each do |item|
 			thread_id = item.css("a")[0]["href"].split("/")[2]
 
-			if Website.where(:thread_id => thread_id, :user_id => current_user).blank?
+			if Website.find_thread_by_user(thread_id, current_user).blank?
 				thread_title = item.css(".post-title").text
 				thread_create_date = item.css("time").text
 				thread_url = "http://www.kaskus.co.id/thread/#{thread_id}"
@@ -80,13 +80,22 @@ class WebsitesController < ApplicationController
 
 		if new_thread_count > 0
 			flash[:success] = "#{new_thread_count} thread(s) successfully loaded to your list"
+		else
+			flash[:success] = "No new thread found"
 		end
+			
 
 		redirect_to kaskus_fjb_thread_list_websites_path
 	end
 
 	def kaskus_init_thread
+		website = Website.find_thread_by_user(params[:id], current_user).first
 
+		doc = Nokogiri::HTML(open(website.url))
+		website.content = doc.css("div.entry")[0].to_s
+		website.save!
+
+		redirect_to website_path(website.thread_id)
 	end
 
 	def kaskus_verify_token

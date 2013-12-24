@@ -11,6 +11,11 @@ Blog::Application.routes.draw do
       get 'kaskus_verify_token'
       get 'kaskus_fjb_thread_list'
     end
+
+    member do
+      get 'init', :action => 'kaskus_init_thread'
+    end
+
     resources :testimonials
   end
 
