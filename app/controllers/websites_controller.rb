@@ -14,22 +14,22 @@ class WebsitesController < ApplicationController
 		@website = Website.new
 	end
 
-	def new
-		url = params[:website][:url]
-		doc = Nokogiri::HTML(open(url))
+	# def new
+	# 	url = params[:website][:url]
+	# 	doc = Nokogiri::HTML(open(url))
 
-		@website = Website.new
-		@website.url = url
-		@website.title = doc.css("h2.entry-title").text
-		@website.content = doc.css("div.entry")[0].to_s
-	end
+	# 	@website = Website.new
+	# 	@website.url = url
+	# 	@website.title = doc.css("h2.entry-title").text
+	# 	@website.content = doc.css("div.entry")[0].to_s
+	# end
 
-	def create
-		@website = Website.new(params[:website].permit(:url, :title, :content))
-		@website.user = User.find(current_user.id)
-		@website.save
-		redirect_to @website
-	end
+	# def create
+	# 	@website = Website.new(params[:website].permit(:url, :title, :content))
+	# 	@website.user = User.find(current_user.id)
+	# 	@website.save
+	# 	redirect_to @website
+	# end
 
 	def show
 		@website = Website.where(:thread_id => params[:id]).first
@@ -42,12 +42,16 @@ class WebsitesController < ApplicationController
 
 	def kaskus_create
 		token = SecureRandom.urlsafe_base64(25)
+		kaskus_id_param = params[:user][:kaskus_id]
+		
+		if User.where(:kaskus_id => kaskus_id_param).first.blank?
+			User.find(current_user.id).update(:kaskus_id => kaskus_id_param,:kaskus_auth_token => token)
+			flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
+		else
+			flash[:warning] = "Kaskus ID your entered already exist"
+		end	
 
-		User.find(current_user.id).update(:kaskus_id => params[:user][:kaskus_id],:kaskus_auth_token => token)
-
-		flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
 		redirect_to kaskus_new_websites_path
-	
 	end
 	
 	def kaskus_fjb_thread_list
