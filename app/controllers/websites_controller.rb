@@ -122,7 +122,7 @@ class WebsitesController < ApplicationController
 				user_obj.save
 				
 				@auth_status = true
-				flash[:success] = "Thanks, Your token has been verified"
+				flash[:success] = "Thanks, Your kaskus account has been verified"
 				redirect_to kaskus_new_websites_path
 			else
 				flash[:warning] = "Verification failed! Please update your bio with following token"
@@ -130,7 +130,7 @@ class WebsitesController < ApplicationController
 			end
 
 		else
-			flash[:success] = "Your token has been verified"
+			flash[:success] = "Your kaskus account has been verified"
 			redirect_to kaskus_new_websites_path
 		end
 	end
