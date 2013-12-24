@@ -3,36 +3,35 @@
     <h3 class="panel-title">Testimonials</h3>
   </div>
   <div class="panel-body">
-    <%= form_for([@website, @website.testimonials.build]) do |f| %>
-	<% if !user_signed_in? %>
-	<fieldset disabled>
+    <%= form_for([@website, @website.testimonials.build], :html => {:role => 'form', :class => 'form-horizontal'}) do |f| %>
+		<% if !user_signed_in? %>
+		<fieldset disabled>
+		<% end %>
+
+
+		<div class="form-group">
+			<%= f.label :comment, :class => 'col-sm-2 control-label' %>
+			
+		    <div class="col-sm-10">
+		      <%= f.text_area :comment, :class => 'form-control' %>
+		    </div>
+		</div>
+
+		<div class="col-sm-offset-2 col-sm-10">
+        	<%= f.submit "Save", :class => 'btn btn-default' %>
+        </div>
+		
+
+		<% if user_signed_in? %>
+		</fieldset>
+		<% end %>	
 	<% end %>
 
-		<p>
-			<%= f.label :comment %>
-			<%= f.text_area :comment %>
-		</p>
-		<%= f.submit %>
-
-	<% if user_signed_in? %>
-	</fieldset>
-	<% end %>	
-
-	<% end %>
-
-
-	<div class="media">
-	  <a class="pull-left" href="#">
-	    <img class="media-object" src="..." alt="...">
-	  </a>
-	  <div class="media-body">
-	    <h4 class="media-heading">Media heading</h4>
-	    ...
-	  </div>
-	</div>
 	<% @testimonials.each do |t| %>
-		<%= t.comment %> <br/>
-	<% end %>
+		- <%= t.comment %> <br/>
+  	<% end %>
+	</div>
+	
   </div>
 </div>
 
