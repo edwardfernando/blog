@@ -41,7 +41,7 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_create
-		token = SecureRandom.urlsafe_base64(50)
+		token = SecureRandom.urlsafe_base64(25)
 
 		User.find(current_user.id).update(:kaskus_id => params[:user][:kaskus_id],:kaskus_auth_token => token)
 
@@ -91,9 +91,11 @@ class WebsitesController < ApplicationController
 	def kaskus_init_thread
 		website = Website.find_thread_by_user(params[:id], current_user).first
 
-		doc = Nokogiri::HTML(open(website.url))
-		website.content = doc.css("div.entry")[0].to_s
-		website.save!
+		if website.content.blank?
+			doc = Nokogiri::HTML(open(website.url))
+			website.content = doc.css("div.entry")[0].to_s
+			website.save!
+		end
 
 		redirect_to website_path(website.thread_id)
 	end
