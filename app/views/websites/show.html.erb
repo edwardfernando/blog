@@ -1,19 +1,41 @@
-<a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>
-	<%= @website.content.html_safe %> 
-	
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Testimonials</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for([@website, @website.testimonials.build]) do |f| %>
+	<% if !user_signed_in? %>
+	<fieldset disabled>
+	<% end %>
 
-<div>
-	<h2>Testimonials</h2>
-
-	<%= form_for([@website, @website.testimonials.build]) do |f| %>
 		<p>
 			<%= f.label :comment %>
 			<%= f.text_area :comment %>
 		</p>
 		<%= f.submit %>
+
+	<% if user_signed_in? %>
+	</fieldset>
+	<% end %>	
+
 	<% end %>
 
+
+	<div class="media">
+	  <a class="pull-left" href="#">
+	    <img class="media-object" src="..." alt="...">
+	  </a>
+	  <div class="media-body">
+	    <h4 class="media-heading">Media heading</h4>
+	    ...
+	  </div>
+	</div>
 	<% @testimonials.each do |t| %>
 		<%= t.comment %> <br/>
 	<% end %>
+  </div>
 </div>
+
+<a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>
+<%= @website.content.html_safe %> 
+	
