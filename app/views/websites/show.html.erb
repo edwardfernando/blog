@@ -32,7 +32,8 @@
 					    <img class="media-object" src="<%= current_user.avatar_url %>" alt="<%= current_user.email %>'s avatar">
 					  </a>
 					  <div class="media-body">
-					    <%= f.text_area :comment, :class => 'form-control', :rows => '5' %>
+					  	<%= text_area_tag :comment, "", :class => "tinymce form-control", :rows => 10, :cols => 120 %>
+					    <%# f.text_area :comment, :class => 'form-control', :rows => '5' %>
 					  </div>
 					</div>
 			      	
@@ -67,7 +68,7 @@
 	        </a>
 	        <div class="media-body">
 	          <h4 class="media-heading"><%= t.user.name %> <small><%= t.created_at %></small></h4>
-	          <%= t.comment %>
+	          <%= t.comment.html_safe %>
 	        </div>
 		</div>
 	  <% end %>
