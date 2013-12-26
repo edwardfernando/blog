@@ -3,6 +3,7 @@
     <h3 class="panel-title">Testimonials</h3>
   </div>
   <div class="panel-body">
+
     <%= form_for([@website, @website.testimonials.build], :html => {:role => 'form', :class => 'form-horizontal'}) do |f| %>
 		<% if !user_signed_in? %>
 		<fieldset disabled>
@@ -13,7 +14,16 @@
 			<%= f.label :comment, :class => 'col-sm-2 control-label' %>
 			
 		    <div class="col-sm-10">
-		      <%= f.text_area :comment, :class => 'form-control' %>
+		    
+		    	<div class="media">
+				  <a class="pull-left" href="#">
+				    <img class="media-object" src="<%= current_user.avatar_url %>" alt="<%= current_user.email %>'s avatar">
+				  </a>
+				  <div class="media-body">
+				    <%= f.text_area :comment, :class => 'form-control', :rows => '5' %>
+				  </div>
+				</div>
+		      	
 		    </div>
 		</div>
 
@@ -28,12 +38,12 @@
 	<% end %>
 
 	<% @testimonials.each do |t| %>
-		- <%= t.comment %> <br/>
+		- <%= t.comment %> // <%= t.user %> <br/>
   	<% end %>
 	</div>
 	
   </div>
-</div>
+
 
 <a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>
 <%= @website.content.html_safe %> 

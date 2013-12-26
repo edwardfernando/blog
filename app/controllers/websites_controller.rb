@@ -99,6 +99,8 @@ class WebsitesController < ApplicationController
 			doc = Nokogiri::HTML(open(website.url))
 			website.content = doc.css("div.entry")[0].to_s
 			website.save!
+
+			flash[:success] = "New thread initialized"
 		end
 
 		redirect_to website_path(website.thread_id)
