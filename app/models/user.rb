@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20],
                             oauth_token:auth.credentials.token,
-                            oauth_expires_at:Time.at(auth.credentials.expires_at)
+                            oauth_expires_at:Time.at(auth.credentials.expires_at),
+                            avatar_url:auth.info.image
                           )
       		end
     	end
@@ -46,6 +47,7 @@ class User < ActiveRecord::Base
           email:auth.uid+"@twitter.com",
           oauth_token:auth.credentials.token,
           password:Devise.friendly_token[0,20],
+          avatar_url:auth.info.image
         )
       end
     end

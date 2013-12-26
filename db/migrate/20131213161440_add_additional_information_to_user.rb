@@ -9,5 +9,6 @@ class AddAdditionalInformationToUser < ActiveRecord::Migration
     add_column :users, :kaskus_auth_token, :string
     add_column :users, :kaskus_is_verify, :boolean
     add_column :users, :kaskus_verify_date, :datetime
+    add_column :users, :avatar_url, :string
   end
 end
