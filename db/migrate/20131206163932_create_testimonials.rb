@@ -5,6 +5,8 @@ class CreateTestimonials < ActiveRecord::Migration
       t.references :website, index: true
       t.references :user, index: true
 
+      t.references :user, index: true
+
       t.timestamps
     end
   end
