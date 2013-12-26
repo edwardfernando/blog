@@ -36,7 +36,7 @@
 					</li>
 					<li>
 						<% if user_signed_in? %>
-							<a href="#"><%= current_user.email %></a>
+							<a href="#"><%= current_user.name %> (<%= current_user.provider %>)</a>
 						<% else %>
 							<%= link_to 'Sign In', new_user_session_path %>
 						<% end %>
