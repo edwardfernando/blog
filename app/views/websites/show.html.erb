@@ -1,50 +1,75 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+	  <h3 class="panel-title"><a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a></h3>
+	</div>
+	<div class="panel-body">
+	<%= @website.content.html_safe %>       
+	</div>
+</div>
+
+
+
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Testimonials</h3>
+    <h3 class="panel-title">Leave Testimonial</h3>
   </div>
   <div class="panel-body">
 
-    <%= form_for([@website, @website.testimonials.build], :html => {:role => 'form', :class => 'form-horizontal'}) do |f| %>
-		<% if !user_signed_in? %>
-		<fieldset disabled>
-		<% end %>
+	<% if user_signed_in? %>
+	    <%= form_for([@website, @website.testimonials.build], :html => {:role => 'form', :class => 'form-horizontal'}) do |f| %>
+			<% if !user_signed_in? %>
+			<fieldset disabled>
+			<% end %>
 
 
-		<div class="form-group">
-			<%= f.label :comment, :class => 'col-sm-2 control-label' %>
+			<div class="form-group">
+				<%= f.label :comment, :class => 'col-sm-2 control-label' %>
+				
+			    <div class="col-sm-10">
+			    
+			    	<div class="media">
+					  <a class="pull-left" href="#">
+					    <img class="media-object" src="<%= current_user.avatar_url %>" alt="<%= current_user.email %>'s avatar">
+					  </a>
+					  <div class="media-body">
+					    <%= f.text_area :comment, :class => 'form-control', :rows => '5' %>
+					  </div>
+					</div>
+			      	
+			    </div>
+			</div>
+
+			<div class="col-sm-offset-2 col-sm-10">
+	        	<%= f.submit "Save", :class => 'btn btn-default' %>
+	        </div>
 			
-		    <div class="col-sm-10">
-		    
-		    	<div class="media">
-				  <a class="pull-left" href="#">
-				    <img class="media-object" src="<%= current_user.avatar_url %>" alt="<%= current_user.email %>'s avatar">
-				  </a>
-				  <div class="media-body">
-				    <%= f.text_area :comment, :class => 'form-control', :rows => '5' %>
-				  </div>
-				</div>
-		      	
-		    </div>
-		</div>
 
-		<div class="col-sm-offset-2 col-sm-10">
-        	<%= f.submit "Save", :class => 'btn btn-default' %>
-        </div>
-		
-
-		<% if user_signed_in? %>
-		</fieldset>
-		<% end %>	
+			<% if user_signed_in? %>
+			</fieldset>
+			<% end %>	
+		<% end %>
+	<% else %>
+	Login first
 	<% end %>
-
-	<% @testimonials.each do |t| %>
-		- <%= t.comment %> // <%= t.user %> <br/>
-  	<% end %>
 	</div>
-	
   </div>
 
 
-<a href="<%= @website.url %>" target="_blank"> <%= @website.title %> </a>
-<%= @website.content.html_safe %> 
-	
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Testimonials</h3>
+    </div>
+    <div class="panel-body">
+      <% @testimonials.each do |t| %>
+		<div class="media">
+	        <a class="pull-left" href="#">
+	          <img class="media-object" data-src="holder.js/44x44" alt="64x64" style="width: 44px; height: 44px;" src="<%= t.user.avatar_url %>">
+	        </a>
+	        <div class="media-body">
+	          <h4 class="media-heading"><%= t.user.name %> <small><%= t.created_at %></small></h4>
+	          <%= t.comment %>
+	        </div>
+		</div>
+	  <% end %>
+    </div>
+  </div>  
