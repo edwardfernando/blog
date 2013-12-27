@@ -1,4 +1,10 @@
 <h1>Hello, there!</h1>
 
-<%= link_to "My Blog", posts_path %>
-<%= link_to 'New Post', new_post_path %>
+<% @websites_list.each do |w| %>
+	<div class="list-group">
+	  <a href="<%= websites_path%>/<%= w.thread_id %>" class="list-group-item">
+	    <h4 class="list-group-item-heading"><%= w.title %></h4>
+	    <p class="list-group-item-text"><%= w.user.name %></p>
+	  </a>
+	</div>
+<% end %>
