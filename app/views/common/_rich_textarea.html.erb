@@ -1,7 +1,7 @@
 <script type="text/javascript" src="http://tinymce.cachefly.net/4.0/tinymce.min.js" ></script>
 <script type="text/javascript">
 tinymce.init({
-    selector: "textarea",
+    selector: "textarea.rich_textarea_content",
     menubar : false,
     plugins : "textcolor",
     theme_advanced_buttons1: "forecolor,backcolor,fontselect,fontsizeselect",
@@ -9,4 +9,4 @@ tinymce.init({
 });
 </script>
 
-<textarea name="rich_textarea_content" style="width:100%"></textarea>
+<textarea name="rich_textarea_content" class="rich_textarea_content" style="width:100%"></textarea>
