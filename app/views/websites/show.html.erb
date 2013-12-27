@@ -66,7 +66,7 @@
 	          <img class="media-object" data-src="holder.js/44x44" alt="64x64" style="width: 44px; height: 44px;" src="<%= t.user.avatar_url %>">
 	        </a>
 	        <div class="media-body">
-	          <h4 class="media-heading"><%= t.user.name %> <small><%= t.created_at %></small></h4>
+	          <h4 class="media-heading"><%= t.user.name %> <small><%= time_ago_in_words(t.created_at) %></small></h4>
 	          <%= t.comment.html_safe %>
 	        </div>
 		</div>

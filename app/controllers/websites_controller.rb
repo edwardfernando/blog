@@ -33,7 +33,7 @@ class WebsitesController < ApplicationController
 
 	def show
 		@website = Website.where(:thread_id => params[:id]).first
-		@testimonials = Testimonial.where(:website => @website)
+		@testimonials = Testimonial.where(:website => @website).order(created_at: :desc)
 	end
 
 	def kaskus_new
