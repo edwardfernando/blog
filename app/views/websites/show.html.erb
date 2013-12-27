@@ -32,7 +32,7 @@
 					    <img class="media-object" src="<%= current_user.avatar_url %>" alt="<%= current_user.email %>'s avatar">
 					  </a>
 					  <div class="media-body">
-					  	<%= render 'common/rich_textarea' %>
+					  	<%= render 'partials/rich_textarea' %>
 					  </div>
 					</div>
 			      	
@@ -49,7 +49,7 @@
 			<% end %>	
 		<% end %>
 	<% else %>
-	Login first
+		<%= render 'partials/login_button' %>
 	<% end %>
 	</div>
   </div>
