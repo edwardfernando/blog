@@ -67,7 +67,7 @@
 	        </a>
 	        <div class="media-body">
 	          <h4 class="media-heading"><%= t.user.name %> <small><%= t.created_at %></small></h4>
-	          <%= t.comment %>
+	          <%= t.comment.html_safe %>
 	        </div>
 		</div>
 	  <% end %>
