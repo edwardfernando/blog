@@ -18,9 +18,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     @user = User.find_for_twitter_oauth(request.env["omniauth.auth"],current_user)
     if @user.persisted?
+
+      puts "MASUK BLOCK IF"
+
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success"
       sign_in_and_redirect @user, :event => :authentication
     else
+
+      puts "MASUK BLOCK ELSE"
+
       session["devise.twitter_uid"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end

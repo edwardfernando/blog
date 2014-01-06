@@ -32,18 +32,18 @@
 						<%= link_to 'Register Kaskus', kaskus_new_websites_path %>
 					</li>
 					<li>
-						<%= link_to 'Your Site', kaskus_fjb_thread_list_websites_path%>
-					</li>
-					<li>
-						<% if user_signed_in? %>
-							<a href="#"><%= current_user.name %> (<%= current_user.provider %>)</a>
-						<% else %>
-							<%= link_to 'Sign In', new_user_session_path %>
-						<% end %>
+						<%= link_to 'Your Site', kaskus_fjb_thread_list_websites_path %>
 					</li>
 					<% if user_signed_in? %>
 					<li>
-						<%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
+						<a href="#"><%= current_user.name %> (<%= current_user.provider %>)</a>
+					</li>
+					<li>
+						<%= link_to 'Sign Out', logout_path %>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to 'Login', login_path %>
 					</li>
 					<% end %>
 				</ul>
