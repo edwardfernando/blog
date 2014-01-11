@@ -1,34 +1,28 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def facebook
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
- 
-    if @user.persisted?
-      sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+    auth = env["omniauth.auth"]
+    @user = User.find_by_auth(auth)
+
+    if @user.nil?
+      @user = User.create_from_facebook(auth)
+      redirect_to init_profile_path(@user)
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      sign_in_and_redirect @user, :event => :authentication
     end
   end
 
   def twitter
     auth = env["omniauth.auth"]
-    
-    @user = User.find_for_twitter_oauth(request.env["omniauth.auth"],current_user)
-    if @user.persisted?
+    @user = User.find_by_auth(auth)
 
-      puts "MASUK BLOCK IF"
-
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success"
-      sign_in_and_redirect @user, :event => :authentication
+    if @user.nil?
+      @user = User.create_from_twitter(auth)
+      redirect_to init_profile_path(@user)
     else
-
-      puts "MASUK BLOCK ELSE"
-
-      session["devise.twitter_uid"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
+      sign_in_and_redirect @user, :event => :authentication
     end
   end
 

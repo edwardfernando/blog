@@ -26,7 +26,12 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
-  resources :profiles
+  resources :profiles do
+    member do
+      get 'init', :action => 'profile_init'
+      patch 'complete', :action => 'profile_compelete'
+    end
+  end
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

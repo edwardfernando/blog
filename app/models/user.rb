@@ -1,56 +1,42 @@
 class User < ActiveRecord::Base
+
+  validates :email, uniqueness: true
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable, :omniauthable
-  devise :omniauthable, :validatable
+  devise :omniauthable #, :validatable
 
 
   has_many :websites, dependent: :destroy         
 
-	def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    	user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    	
-    	if user
-      		return user
-    	else
-      		registered_user = User.where(:email => auth.info.email).first
+  def self.find_by_auth(auth)
+    return User.where(:provider => auth.provider, :uid => auth.uid).first
+  end
 
-      		if registered_user
-        		return registered_user
-        	else	
-        		user = User.create(
-        					name:auth.extra.raw_info.name,
+  def self.create_from_facebook(auth)
+    user = User.create(
+                  name:auth.extra.raw_info.name,
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
-                            password:Devise.friendly_token[0,20],
+                            encrypted_password:Devise.friendly_token[0,20],
                             oauth_token:auth.credentials.token,
                             oauth_expires_at:Time.at(auth.credentials.expires_at),
                             avatar_url:auth.info.image
                           )
-      		end
-    	end
-  	end
+  end
 
-  def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    if user
-      return user
-    else
-      registered_user = User.where(:email => auth.uid + "@twitter.com").first
-      if registered_user
-        return registered_user
-      else
-        user = User.create(name:auth.info.name,
+	
+  def self.create_from_twitter(auth)
+    user = User.create(name:auth.info.name,
           provider:auth.provider,
           uid:auth.uid,
-          email:auth.uid+"@twitter.com",
+          email:"",
           oauth_token:auth.credentials.token,
-          password:Devise.friendly_token[0,20],
           avatar_url:auth.info.image
         )
-      end
-    end
   end
+
 end
