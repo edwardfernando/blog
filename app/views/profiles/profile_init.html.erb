@@ -1,0 +1,20 @@
+<h1>Complete your registration</h1>
+
+<%= form_for @user, :url => complete_profile_path, 
+		:html => {:role => 'form'} do |f| %>
+
+<div class="input-group">
+  <span class="input-group-addon">Your Name</span>
+  <input type="text" class="form-control" placeholder="Username" value="<%= @user.name %>" name="name">
+</div>
+
+<p>
+
+<div class="input-group">
+  <span class="input-group-addon">Email</span>
+  <input type="text" class="form-control" placeholder="Email" value="<%= @user.email %>" name="email">
+</div>
+
+<%= f.submit %>
+
+<% end %>
