@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
 		user.name = params[:name]
 		user.email = params[:email]
 
-		user.save!
+		 user.save!
 
 		sign_in_and_redirect user, :event => :authentication
 	end
