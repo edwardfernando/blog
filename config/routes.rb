@@ -29,7 +29,7 @@ Blog::Application.routes.draw do
   resources :profiles do
     member do
       get 'init', :action => 'profile_init'
-      patch 'complete', :action => 'profile_compelete'
+      patch 'complete', :action => 'profile_complete'
     end
   end
   
