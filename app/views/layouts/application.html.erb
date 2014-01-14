@@ -36,7 +36,7 @@
 					</li>
 					<% if user_signed_in? %>
 					<li>
-						<a href="#"><%= current_user.name %> (<%= current_user.provider %>)</a>
+						<%= link_to current_user.name, profiles_path %>
 					</li>
 					<li>
 						<%= link_to 'Sign Out', logout_path %>
