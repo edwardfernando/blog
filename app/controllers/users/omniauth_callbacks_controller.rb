@@ -6,7 +6,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.nil?
       @user = User.create_from_facebook(auth)
-      redirect_to init_profile_path(@user)
+      redirect_to init_profile_path(@user.random_id)
+    elsif !@user.profile_is_complete
+      redirect_to init_profile_path(@user.random_id)
     else
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       sign_in_and_redirect @user, :event => :authentication
@@ -19,7 +21,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.nil?
       @user = User.create_from_twitter(auth)
-      redirect_to init_profile_path(@user)
+      redirect_to init_profile_path(@user.random_id)
+    elsif !@user.profile_is_complete
+      redirect_to init_profile_path(@user.random_id)
     else
       set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
       sign_in_and_redirect @user, :event => :authentication
