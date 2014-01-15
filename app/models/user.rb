@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+  class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
 
@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
-                            encrypted_password:Devise.friendly_token[0,20],
                             oauth_token:auth.credentials.token,
                             oauth_expires_at:Time.at(auth.credentials.expires_at),
-                            avatar_url:auth.info.image
+                            avatar_url:auth.info.image,
+                            random_id:Devise.friendly_token[0,20]
                           )
   end
 
@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
           uid:auth.uid,
           email:"",
           oauth_token:auth.credentials.token,
-          avatar_url:auth.info.image
+          avatar_url:auth.info.image,
+          random_id:Devise.friendly_token[0,20]
         )
   end
 
