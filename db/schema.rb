@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20131220095305) do
     t.boolean  "kaskus_is_verify"
     t.datetime "kaskus_verify_date"
     t.string   "avatar_url"
+    t.boolean  "profile_is_complete"
+    t.string   "random_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
