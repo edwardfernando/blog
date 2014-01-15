@@ -5,14 +5,23 @@ class ProfilesController < ApplicationController
 	end
 
 	def profile_init
-		@user = User.find(params[:id])
+		@user = User.where(:random_id => params[:id]).first
+
+		if @user.profile_is_complete
+			redirect_to profiles_path
+		end
 	end
 
 	def profile_complete
-		@user = User.find(params[:id])
+		@user = User.where(:random_id => params[:id]).first
+
+		if @user.profile_is_complete
+			redirect_to profiles_path
+		end
 
 		@user.name = params[:name]
 		@user.email = params[:email]
+		@user.profile_is_complete = 1
 
 		if @user.save
 			sign_in(@user)
