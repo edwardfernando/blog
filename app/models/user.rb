@@ -1,6 +1,6 @@
   class User < ActiveRecord::Base
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, presence: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -30,14 +30,17 @@
 
 	
   def self.create_from_twitter(auth)
-    user = User.create(name:auth.info.name,
+     user = User.new(name:auth.info.name,
           provider:auth.provider,
           uid:auth.uid,
           email:"",
           oauth_token:auth.credentials.token,
           avatar_url:auth.info.image,
-          random_id:Devise.friendly_token[0,20]
+          random_id:Devise.friendly_token[0,20],
         )
+
+    user.save(validate: false)
+    return user
   end
 
 end
