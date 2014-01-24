@@ -21,10 +21,15 @@ class ProfilesController < ApplicationController
 
 		@user.name = params[:name]
 		@user.email = params[:email]
+		@user.kaskus_id = params[:kaskus_id]
+
 		@user.profile_is_complete = 1
 
 		if @user.save
 			sign_in(@user)
+
+			flash[:message] = "" 
+
 			redirect_to profiles_path
 		else
 			render 'profile_init'
