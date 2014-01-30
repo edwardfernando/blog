@@ -27,12 +27,23 @@ class ProfilesController < ApplicationController
 
 		if @user.save
 			sign_in(@user)
-
-			flash[:message] = "" 
-
 			redirect_to profiles_path
 		else
 			render 'profile_init'
 		end
 	end
+
+	def profile_update
+		@user = User.where(:id => current_user.id).first
+		@user.name = params[:user][:name]
+		@user.email = params[:user][:email]
+
+		if @user.save
+			flash[:success] = "Your profile succeffully updated"
+			redirect_to profiles_path
+		else
+			render 'index'
+		end	
+	end
+
 end
