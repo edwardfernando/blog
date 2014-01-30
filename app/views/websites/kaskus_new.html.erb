@@ -17,7 +17,7 @@
 	    <div class="input-group">
 	    <%= f.text_field :kaskus_id, :class => 'form-control', :placeholder => "Input your Kaskus ID here" %>
 	      <span class="input-group-btn">
-	        <%= f.submit "Save", :class => 'btn btn-default' %>
+	        <%= f.submit "Save & Generate Token", :class => 'btn btn-default' %>
 	      </span>
 	    </div>
 	  </div>
@@ -26,22 +26,21 @@
 <% end %>
 
 
-<% if !@user.kaskus_is_verify? %>
-	<div style="padding-top:30px">
-		<p>
-			You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below
-		</p>
-	</div>
+<!--  -->
+<div style="padding-top:30px">
+	<p>
+		You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below
+	</p>
+</div>
 
-	<div class="input-group input-group-lg">
-	  <span class="input-group-addon">Token</span>
-	  <label class="form-control"><%= @user.kaskus_auth_token %></label>
-	</div>
+<div class="input-group input-group-lg">
+  <span class="input-group-addon">Your Token</span>
+  <label class="form-control"><%= @user.kaskus_auth_token %></label>
+</div>
 
-	<div style="padding-top:10px;">
-		<%= link_to "Verify My Account", kaskus_verify_token_websites_path, :class => "btn btn-primary" %>
-	</div>
-<% end %>
+<div style="padding-top:10px;">
+	<%= link_to "Verify My Account", kaskus_verify_token_websites_path, :class => "btn btn-primary" %>
+</div>
 
 
 
