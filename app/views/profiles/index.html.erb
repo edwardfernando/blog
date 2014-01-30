@@ -1,4 +1,40 @@
 <h1>Your Profile</h1>
 
-Name : <%= @user.name %> <br/>
-Account type : <%= @user.provider %>
+<% if @user.errors.any? %>
+	<div id="error_explanation">
+		<%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:
+		<ul>
+			<% @user.errors.full_messages.each do |msg| %> 
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>		
+
+<%= form_for @user, :url => profile_update_profiles_path do |f| %>
+	<table width="100%">
+		<tr valign="top">
+			<td>
+				<img src='<%=@user.avatar_url %>' />
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td><%= f.label :name %></td>
+						<td><%= f.text_field :name %></td>
+					</tr>
+					<tr>
+						<td><%= f.label :provider %></td>
+						<td><%= @user.provider %></td>
+					</tr>
+					<tr>
+						<td><%= f.label :email %></td>
+						<td><%= f.text_field :email %></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+	<%= f.submit "Save", :class => 'btn btn-default' %>
+<% end %>
