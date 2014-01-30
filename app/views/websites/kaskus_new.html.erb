@@ -12,31 +12,16 @@
 		</div>
 	<% end %>
 	
-	<% if @user.kaskus_auth_token.blank? && !@user.kaskus_is_verify? %>
-		<div class="row">
-		  <div class="col-lg-6">
-		    <div class="input-group">
-		    <%= f.text_field :kaskus_id, :class => 'form-control', :placeholder => "Input your Kaskus ID here" %>
-		      <span class="input-group-btn">
-		        <%= f.submit "Save", :class => 'btn btn-default' %>
-		      </span>
-		    </div>
-		  </div>
-		</div>
-	<% elsif !@user.kaskus_auth_token.blank? && @user.kaskus_is_verify?%>
-		<div class="panel panel-warning">
-		    <div class="panel-heading">
-		        <h3 class="panel-title">
-		            Token Key is already generated
-		        </h3>
-		    </div>
-	    	<div class="panel-body">
-	    		Kaskus ID : <b><%= @user.kaskus_id %></b><br/>
-			Token Key : 
-			<b><%= @user.kaskus_auth_token %></b>
-	    	</div>
-		</div>
-	<% end %>
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	    <%= f.text_field :kaskus_id, :class => 'form-control', :placeholder => "Input your Kaskus ID here" %>
+	      <span class="input-group-btn">
+	        <%= f.submit "Save", :class => 'btn btn-default' %>
+	      </span>
+	    </div>
+	  </div>
+	</div>
 	
 <% end %>
 
