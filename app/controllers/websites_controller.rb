@@ -41,20 +41,26 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_create
+		@user = current_user
 		kaskus_id_param = params[:user][:kaskus_id]
-		
-		if User.where(:kaskus_id => kaskus_id_param).first.blank?
-			token = SecureRandom.urlsafe_base64(25)
-			User.find(current_user.id).update(:kaskus_id => kaskus_id_param,:kaskus_auth_token => token)
-			flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
-		else
-			flash[:warning] = "Kaskus ID your entered already exist"
-		end	
 
-		redirect_to kaskus_new_websites_path
+		@user.kaskus_id = kaskus_id_param
+
+		if @user.kaskus_id.blank?
+			flash[:warning] = "Please input your kaskus id"
+			render 'kaskus_new'
+		else
+			token = SecureRandom.urlsafe_base64(25)
+			User.find(current_user.id).update(:kaskus_id => kaskus_id_param, :kaskus_auth_token => token, :kaskus_is_verify => false)
+			flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
+
+			redirect_to kaskus_new_websites_path
+		end
+	
 	end
 	
 	def kaskus_fjb_thread_list
+		is_kaskus_id_verified
 		@websites = current_user.websites
 	end
 
@@ -107,36 +113,28 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_verify_token
-		is_verify = current_user.kaskus_is_verify
+		user_obj = User.find(current_user.id)
+		kaskus_id = user_obj.kaskus_id
+		kaskus_auth_token = user_obj.kaskus_auth_token
+
+		kaskus_profile_url = "http://www.kaskus.co.id/profile/#{kaskus_id}"
 		
-		if !is_verify
-			user_obj = User.find(current_user.id)
-			kaskus_id = user_obj.kaskus_id
-			kaskus_auth_token = user_obj.kaskus_auth_token
+		doc = Nokogiri::HTML(open(kaskus_profile_url))
 
-			kaskus_profile_url = "http://www.kaskus.co.id/profile/#{kaskus_id}"
+		kaskus_bio = doc.css("div.description").text.delete(" ")
+		bio_token = kaskus_bio[3, kaskus_bio.length - 3]
+
+		@auth_status = false
+		if kaskus_auth_token == bio_token
+			user_obj.kaskus_is_verify = 1
+			user_obj.kaskus_verify_date = Time.now
+			user_obj.save
 			
-			doc = Nokogiri::HTML(open(kaskus_profile_url))
-
-			kaskus_bio = doc.css("div.description").text.delete(" ")
-			bio_token = kaskus_bio[3, kaskus_bio.length - 3]
-
-			@auth_status = false
-			if kaskus_auth_token == bio_token
-				user_obj.kaskus_is_verify = 1
-				user_obj.kaskus_verify_date = Time.now
-				user_obj.save
-				
-				@auth_status = true
-				flash[:success] = "Thanks, Your kaskus account has been verified"
-				redirect_to kaskus_new_websites_path
-			else
-				flash[:warning] = "Verification failed! Please update your bio with following token"
-				redirect_to kaskus_new_websites_path
-			end
-
+			@auth_status = true
+			flash[:success] = "Thanks, Your kaskus account has been verified"
+			redirect_to kaskus_new_websites_path
 		else
-			flash[:success] = "Your kaskus account has been verified"
+			flash[:warning] = "Verification failed! Please update your bio with following token"
 			redirect_to kaskus_new_websites_path
 		end
 	end
