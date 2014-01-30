@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   
   def index
   	@websites_list = Website.where("content is not null").order(updated_at: :desc)
+    @testimonials_list = Testimonial.all.order(updated_at: :desc)
   end
 
   def login
