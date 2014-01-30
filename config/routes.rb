@@ -31,6 +31,10 @@ Blog::Application.routes.draw do
       get 'init', :action => 'profile_init'
       patch 'complete', :action => 'profile_complete'
     end
+
+    collection do
+      patch 'profile_update'
+    end
   end
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
