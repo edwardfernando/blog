@@ -63,7 +63,7 @@
     </div>
     <div class="panel-body">
       <% @testimonials.each do |t| %>
-		<div class="media">
+		<div class="media" id="<%= t.random_id %>">
 	        <a class="pull-left" href="#">
 	          <img class="media-object" data-src="holder.js/44x44" alt="64x64" style="width: 44px; height: 44px;" src="<%= t.user.avatar_url %>">
 	        </a>

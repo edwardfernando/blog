@@ -17,7 +17,7 @@
 			Recent testimonial
 			<% @testimonials_list.each do |t| %>
 				<div class="list-group">
-				  <a href="<%= websites_path%>/<%= t.website.thread_id %>" class="list-group-item">
+				  <a href="<%= websites_path%>/<%= t.website.thread_id %>#<%= t.random_id %>" class="list-group-item">
 				    <h5 class="list-group-item-heading"><%= t.user.name %> :: <%= t.website.title %></h5>
 				    <p class="list-group-item-text"><%= t.comment.html_safe %> <small><%= time_ago_in_words(t.created_at) %></small></p>
 				  </a>

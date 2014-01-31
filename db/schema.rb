@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131220095305) do
+ActiveRecord::Schema.define(version: 20140131145248) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20131220095305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "random_id"
   end
 
   add_index "testimonials", ["user_id"], name: "index_testimonials_on_user_id"
