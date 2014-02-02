@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20140202143231) do
     t.integer  "testimonial_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "accurate_accuration"
+    t.integer  "accurate_description"
     t.integer  "communication"
     t.integer  "shipping_speed"
     t.integer  "shipping_cost"
