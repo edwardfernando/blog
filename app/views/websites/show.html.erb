@@ -17,11 +17,7 @@
 
 	<% if user_signed_in? %>
 	    <%= form_for([@website, @website.testimonials.build], :html => {:role => 'form', :class => 'form-horizontal'}) do |f| %>
-			<% if !user_signed_in? %>
-			<fieldset disabled>
-			<% end %>
-
-
+	    
 			<div class="form-group">
 				<%= f.label :comment, :class => 'col-sm-2 control-label' %>
 				
@@ -42,11 +38,7 @@
 			<div class="col-sm-offset-2 col-sm-10">
 	        	<%= f.submit "Save", :class => 'btn btn-default' %>
 	        </div>
-			
 
-			<% if user_signed_in? %>
-			</fieldset>
-			<% end %>	
 		<% end %>
 	<% else %>
 		<div align="center">
