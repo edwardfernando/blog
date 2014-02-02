@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140202143231) do
+ActiveRecord::Schema.define(version: 20140131145248) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -30,19 +30,6 @@ ActiveRecord::Schema.define(version: 20140202143231) do
     t.datetime "updated_at"
   end
 
-  create_table "reputations", force: true do |t|
-    t.integer  "rating"
-    t.integer  "testimonial_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "accurate_description"
-    t.integer  "communication"
-    t.integer  "shipping_speed"
-    t.integer  "shipping_cost"
-  end
-
-  add_index "reputations", ["testimonial_id"], name: "index_reputations_on_testimonial_id"
-
   create_table "testimonials", force: true do |t|
     t.text     "comment"
     t.integer  "website_id"
@@ -50,6 +37,11 @@ ActiveRecord::Schema.define(version: 20140202143231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "random_id"
+    t.integer  "rating"
+    t.integer  "accurate_description"
+    t.integer  "communication"
+    t.integer  "shipping_speed"
+    t.integer  "shipping_cost"
   end
 
   add_index "testimonials", ["user_id"], name: "index_testimonials_on_user_id"
