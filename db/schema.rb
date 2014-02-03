@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20140131145248) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "random_id"
+    t.integer  "rating"
+    t.integer  "accurate_description"
+    t.integer  "communication"
+    t.integer  "shipping_speed"
+    t.integer  "shipping_cost"
   end
 
   add_index "testimonials", ["user_id"], name: "index_testimonials_on_user_id"
