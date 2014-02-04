@@ -33,43 +33,64 @@
 					</tr>
 				</table>
 			</td>
-			<td>
-				<div class="panel panel-primary">
-		        <div class="panel-heading">
-		          <h3 class="panel-title">
-		          	Kaskus ID
-		          </h3>
-		        </div>
-		        <div class="panel-body">
-		        	<p><%= link_to "Manage Your kaskus ID", kaskus_new_websites_path %></p>
-
-		        	Kaskus ID : 
-		          	<% if !@user.kaskus_id.blank? %>
-						<%= @user.kaskus_id %> / 
-						Status : 
-						<% if @user.kaskus_is_verify %> 
-							Verified 
-						<% else %> 
-							Not Verified 
-
-							<p> Add the following token into your kaskus's bio' and click 'Verify My Account'</p> 
-
-							<div class="well"><%= @user.kaskus_auth_token %></div>
-							
-
-							<div style="padding-top:10px;">
-								<%= link_to "Verify My Account", kaskus_verify_token_websites_path, :class => "btn btn-primary" %>
-							</div>
-						<% end %>
-					<% else %>
-						-
-					<% end %>
-		        </div>
-		      </div>
-				
-			</td>
 		</tr>
 	</table>
-	
 	<%= f.submit "Save", :class => 'btn btn-default' %>
 <% end %>
+
+<div style="padding-top: 30px">
+	<div class="panel panel-primary">
+	    <div class="panel-heading">
+	      <h3 class="panel-title">
+	      	Kaskus ID
+	      </h3>
+	    </div>
+	    <div class="panel-body">
+	    	
+			<%= form_for @user, :url => kaskus_new_websites_path, 
+					:html => {:role => 'form'} do |f| %>
+
+				<% if @user.errors.any? %>
+					<div id="error_explanation">
+						<h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2> 
+						<ul>
+							<% @user.errors.full_messages.each do |msg| %> 
+							<li><%= msg %></li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+				
+				<div class="row">
+				  <div class="col-lg-6">
+				    <div class="input-group">
+				    <%= f.text_field :kaskus_id, :class => 'form-control', :placeholder => "Input your Kaskus ID here" %>
+				      <span class="input-group-btn">
+				        <%= f.submit "Save & Generate Token", :class => 'btn btn-default' %>
+				      </span>
+				    </div>
+				  </div>
+				</div>
+				
+			<% end %>
+	    	
+	      	<% if !@user.kaskus_id.blank? %>
+	      		<hr/>
+				Status : 
+				<% if @user.kaskus_is_verify %> 
+					Verified 
+				<% else %> 
+					Not Verified 
+
+					<p> Add the following token into your kaskus's bio' and click 'Verify My Account'</p> 
+
+					<div class="well"><%= @user.kaskus_auth_token %></div>
+
+					<div style="padding-top:10px;">
+						<%= link_to "Verify My Account", kaskus_verify_token_websites_path, :class => "btn btn-primary" %>
+					</div>
+				<% end %>
+			<% end %>
+	    </div>
+	</div>
+</div>
