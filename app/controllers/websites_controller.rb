@@ -10,8 +10,8 @@ class WebsitesController < ApplicationController
 	before_action :is_kaskus_id_verified, only: [:kaskus_fjb_thread_list, :kaskus_load_thread]
 
 	def index
-		@websites = Website.find_by_user(current_user.id)
-		@website = Website.new
+		# @websites = Website.find_by_user(current_user.id)
+		# @website = Website.new
 	end
 
 	def show
@@ -20,7 +20,7 @@ class WebsitesController < ApplicationController
 	end
 
 	def kaskus_new
-		@user = User.find(current_user.id)
+		# @user = User.find(current_user.id)
 	end
 
 	def kaskus_create
@@ -35,9 +35,9 @@ class WebsitesController < ApplicationController
 		else
 			token = SecureRandom.urlsafe_base64(25)
 			User.find(current_user.id).update(:kaskus_id => kaskus_id_param, :kaskus_auth_token => token, :kaskus_is_verify => false)
-			flash[:success] = "Kaskus ID saved successfully, your authentication token is #{token}"
+			flash[:success] = "Kaskus ID saved successfully"
 
-			redirect_to kaskus_new_websites_path
+			redirect_to profiles_path
 		end
 	
 	end
@@ -115,10 +115,10 @@ class WebsitesController < ApplicationController
 			
 			@auth_status = true
 			flash[:success] = "Thanks, Your kaskus account has been verified"
-			redirect_to kaskus_new_websites_path
+			redirect_to kaskus_fjb_thread_list_websites_path
 		else
 			flash[:warning] = "Verification failed! Please update your bio with following token"
-			redirect_to kaskus_new_websites_path
+			redirect_to profiles_path
 		end
 	end
 
@@ -126,14 +126,14 @@ class WebsitesController < ApplicationController
 	def is_kaskus_id_exits
 		if current_user.kaskus_id.blank?
 			flash[:warning] = "You haven't provided a kaskus ID"
-			redirect_to kaskus_new_websites_path
+			redirect_to profiles_path
 		end
 	end
 
 	def is_kaskus_id_verified
 		if !current_user.kaskus_is_verify
-			flash[:warning] = "Your kaskus account is not verified. You need to add the following token into your kaskus's bio' coloum, and click 'Verify My Account' link below"
-			redirect_to kaskus_new_websites_path
+			flash[:warning] = "Your kaskus account is not verified."
+			redirect_to profiles_path
 		end
 	end
 
