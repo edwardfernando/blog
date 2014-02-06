@@ -78,7 +78,8 @@
 	      		<hr/>
 				Status : 
 				<% if @user.kaskus_is_verify %> 
-					Verified 
+					<strong>Verified</strong> on <%= @user.kaskus_verify_date %>
+					<p>Token : <div class="well"><%= @user.kaskus_auth_token %></div></p>
 				<% else %> 
 					Not Verified 
 
