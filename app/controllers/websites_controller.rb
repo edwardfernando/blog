@@ -30,16 +30,14 @@ class WebsitesController < ApplicationController
 		@user.kaskus_id = kaskus_id_param
 
 		if @user.kaskus_id.blank?
-			flash[:warning] = "Please input your kaskus id"
-			render 'kaskus_new'
+			flash[:warning] = "Your kaskus ID is blank. Please input your kaskus ID"
 		else
 			token = SecureRandom.urlsafe_base64(25)
 			User.find(current_user.id).update(:kaskus_id => kaskus_id_param, :kaskus_auth_token => token, :kaskus_is_verify => false)
 			flash[:success] = "Kaskus ID saved successfully"
-
-			redirect_to profiles_path
 		end
 	
+		redirect_to profiles_path
 	end
 	
 	def kaskus_fjb_thread_list
